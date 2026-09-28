@@ -1,0 +1,262 @@
+:root {
+  --bg: #121213;
+  --text: #f8f8f8;
+  --muted: #818384;
+  --border: #3a3a3c;
+  --filled-border: #565758;
+  --key: #818384;
+  --correct: #538d4e;
+  --present: #b59f3b;
+  --absent: #3a3a3c;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  min-height: 100dvh;
+}
+
+main {
+  max-width: 520px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding: 0 12px;
+}
+
+header {
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+  padding: 12px 0;
+}
+
+.title {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+button,
+.button {
+  background: var(--correct);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.button.secondary {
+  background: transparent;
+  border: 1px solid var(--muted);
+}
+
+/* Creator */
+.creator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding-top: 48px;
+  text-align: center;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 1.05rem;
+  margin: 0 0 8px;
+}
+
+.word-input {
+  width: 100%;
+  max-width: 360px;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 12px;
+  background: transparent;
+  color: var(--text);
+  border: 2px solid var(--filled-border);
+  border-radius: 6px;
+  outline: none;
+}
+
+.word-input:focus {
+  border-color: var(--correct);
+}
+
+.hint {
+  color: var(--muted);
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.link-box {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.link-box input {
+  width: 100%;
+  padding: 10px;
+  font-size: 0.9rem;
+  background: #1e1e1f;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.link-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* Game */
+.game {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 8px;
+}
+
+.toast-area {
+  height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.toast {
+  background: var(--text);
+  color: var(--bg);
+  font-weight: 700;
+  padding: 10px 14px;
+  border-radius: 4px;
+}
+
+.board {
+  display: grid;
+  gap: 5px;
+  width: min(100%, calc(var(--cols) * 62px));
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  gap: 5px;
+}
+
+.tile {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1rem, calc(22rem / var(--cols) / 2.2), 2rem);
+  font-weight: 700;
+  border: 2px solid var(--border);
+  text-transform: uppercase;
+}
+
+.tile.filled {
+  border-color: var(--filled-border);
+  animation: pop 0.1s;
+  animation-delay: 0s !important;
+}
+
+.tile.correct,
+.tile.present,
+.tile.absent {
+  border: none;
+  animation: flip 0.5s ease both;
+}
+
+.tile.correct { background: var(--correct); }
+.tile.present { background: var(--present); }
+.tile.absent { background: var(--absent); }
+
+.shake {
+  animation: shake 0.4s;
+}
+
+.result {
+  text-align: center;
+  margin: 12px 0;
+}
+
+.result p {
+  font-size: 1.2rem;
+  margin: 0 0 12px;
+}
+
+.keyboard {
+  width: 100%;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.key-row {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.key {
+  flex: 1;
+  max-width: 44px;
+  height: 58px;
+  padding: 0;
+  background: var(--key);
+  font-size: 0.85rem;
+  border-radius: 4px;
+  user-select: none;
+}
+
+.key.wide {
+  max-width: 68px;
+  flex: 1.5;
+  font-size: 0.75rem;
+}
+
+.key.correct { background: var(--correct); }
+.key.present { background: var(--present); }
+.key.absent { background: var(--absent); }
+
+@keyframes pop {
+  50% { transform: scale(1.1); }
+}
+
+@keyframes flip {
+  0% { transform: rotateX(0); background: transparent; border: 2px solid var(--filled-border); }
+  49% { background: transparent; border: 2px solid var(--filled-border); }
+  50% { transform: rotateX(90deg); }
+  100% { transform: rotateX(0); }
+}
+
+@keyframes shake {
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
